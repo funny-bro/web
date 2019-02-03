@@ -9,73 +9,36 @@
       sm8
       md6
     >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
-          </p>
-          <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
-            >
-              discord
-            </a>.
-          </p>
-          <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
-          </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+
+      <v-container fluid>
+        <v-layout column>
+          <v-flex xs12>
+            <div class="resultContainer">
+              <v-layout align-center justify-center column>
+                <v-data-table
+                  :headers="headers"
+                  :items="items"
+                  class="elevation-1"
+                  hide-actions
+                >
+                  <template slot="items" slot-scope="props">
+                    <td>{{ props.item.name }}</td>
+                    <td class="text-xs-right">{{ props.item.cityCode }}</td>
+                    <td class="text-xs-right">{{ props.item.townCode }}</td>
+                    <td class="text-xs-right">{{ props.item.sectCode }}</td>
+                    <td class="text-xs-right">{{ props.item.landBuild }}</td>
+                    <td class="text-xs-right">{{ props.item.order }}</td>
+                    <td class="text-xs-right">{{ props.item.type }}</td>
+                    <td class="text-xs-right">{{ props.item.updatedAt }}</td>
+                  </template>
+                </v-data-table>
+
+              </v-layout>
+            </div>
+          </v-flex>
+        </v-layout>
+      </v-container>
+
     </v-flex>
   </v-layout>
 </template>
@@ -83,11 +46,71 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import axios from 'axios'
+import dateUtil from '~/lib/date'
 
 export default {
+  async asyncData ({ params, req }) {
+    const url = `http://${req.connection.remoteAddress}:3000/api/landbuilds`
+    return axios.get(url)
+    .then((res) => {
+      return { landbuild: res.data }
+    })
+  },
+  computed: {
+    items: function(){
+      const arr = this.landbuild.map((item)=> {
+        const {data, updatedAt, landBuild, section} = item
+        const {cityCode, townCode, sectCode} = section
+        return JSON.parse(data).map(itemData => ({
+            ...itemData,
+            cityCode,
+            townCode,
+            sectCode,
+            updatedAt: dateUtil.format(updatedAt),
+            landBuild
+          }))
+      })
+
+      const flattenedArray = [].concat(...arr);  
+      const personArr = flattenedArray.filter(item => item.name.includes('＊'))
+      return personArr
+    }
+  },
+  data: function(){
+    return {
+      headers: [
+        {
+          text: '戶主',
+          align: 'left',
+          sortable: false,
+          value: 'name'
+        },
+        { text: '城市', value: 'cityCode' },
+        { text: '區號', value: 'townCode' },
+        { text: '路段', value: 'sectCode' },
+        { text: '建號', value: 'landBuild' },
+        { text: 'Calories', value: 'order' },
+        { text: '抵押權', value: 'type' },
+        { text: '更新時間', value: 'updatedAt' },
+      ],
+    }
+  },
   components: {
     Logo,
     VuetifyLogo
   }
 }
 </script>
+
+<style scoped>
+  .resultContainer {
+    height: 350px;
+  }
+
+  .item {
+    min-height: 50px;
+    min-width: 80px;
+    margin: 10px;
+  }
+</style>

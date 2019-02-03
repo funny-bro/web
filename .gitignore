@@ -9,4 +9,6 @@ npm-debug.log
 
 # Nuxt generate
 dist
-env.sh
+*.sh
+*.pem
+configInit

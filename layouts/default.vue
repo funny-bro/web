@@ -1,6 +1,13 @@
 <template>
   <v-app dark>
     <v-content>
+      
+    <v-toolbar color="cyan" dark fixed app>
+      <v-spacer></v-spacer>
+      <v-toolbar-title>Application</v-toolbar-title>
+      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+    </v-toolbar>
+    
       <v-container>
         <nuxt />
       </v-container>
@@ -41,3 +48,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.headerWrapper {
+  height: 80px;
+  text-align: center;
+  line-height: 80px;
+  background: black;
+  font-size: 30px;
+}
+</style>
