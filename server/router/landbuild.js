@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const config = require('../lib/config')
+const configParser = require('../../lib/systemConfig/parser')
 
 const sequelize = require('../db/init')
 
@@ -12,9 +12,9 @@ router.get('/', async function (req, res) {
     const {cityCode, townCode, sectCode} = responseBuilding[0]
     response[i].section = {
       ...responseBuilding[0],
-      cityCode: config.cityCode(cityCode).title,
-      townCode: config.townCode(townCode).title,
-      sectCode: config.sectCode(townCode, sectCode).title
+      cityCode: configParser.cityCode(cityCode).title,
+      townCode: configParser.townCode(townCode).title,
+      sectCode: configParser.sectCode(townCode, sectCode).title
     }
   }
   

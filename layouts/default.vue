@@ -2,11 +2,25 @@
   <v-app dark>
     <v-content>
       
+      <!-- <v-navigation-drawer permanent floating light>
+        <v-list dense class="pt-0">
+          <v-list-tile v-for="i in 3" :to="{path: '/page' + i}" :key='i'>
+            <v-list-tile-action>
+              <v-icon>home</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <a href='/'>Page {{ i }}</a>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>     
+      </v-navigation-drawer> -->
+
+<!-- 
     <v-toolbar color="cyan" dark fixed app>
       <v-spacer></v-spacer>
       <v-toolbar-title>Application</v-toolbar-title>
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-    </v-toolbar>
+    </v-toolbar> -->
     
       <v-container>
         <nuxt />

@@ -9,7 +9,6 @@
       sm8
       md6
     >
-
       <v-container fluid>
         <v-layout column>
           <v-flex xs12>
@@ -52,16 +51,18 @@ import dateUtil from '~/lib/date'
 export default {
   async asyncData ({ params, req }) {
     const url = `http://${req.connection.remoteAddress}:3000/api/landbuilds`
-    return axios.get(url)
-    .then((res) => {
-      return { landbuild: res.data }
-    })
+    const res = await axios.get(url)
+    const landbuild = res.data
+    return {
+      landbuild
+    }
   },
   computed: {
     items: function(){
       const arr = this.landbuild.map((item)=> {
         const {data, updatedAt, landBuild, section} = item
         const {cityCode, townCode, sectCode} = section
+
         return JSON.parse(data).map(itemData => ({
             ...itemData,
             cityCode,
@@ -74,6 +75,7 @@ export default {
 
       const flattenedArray = [].concat(...arr);  
       const personArr = flattenedArray.filter(item => item.name.includes('＊'))
+
       return personArr
     }
   },
