@@ -58,8 +58,13 @@ import dateUtil from '~/lib/date'
 
 export default {
   async asyncData ({ params, req }) {
-    const url = `http://${req.connection.remoteAddress}:3000/api/landbuilds`
-    const res = await axios.get(url)
+    const {updatedAt, cityCode, townCode, sectCode} = req.query
+
+    const requestOptions = {
+      params: {updatedAt, cityCode, townCode, sectCode}
+    }  
+
+    const res = await axios.get(`http://${req.connection.remoteAddress}:3000/api/landbuilds`, requestOptions)
     const landbuild = res.data
     return {
       landbuild

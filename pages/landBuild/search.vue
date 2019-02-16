@@ -11,12 +11,12 @@
       md12
       lg12
     >
-      <form action="/landBuild/detail" method='GET'>
+      <form action="/landBuild/list" method='GET'>
         <div class='submitContainer'>
           <v-btn type="submit" class='submitButton' color="info">送出</v-btn>
         </div>
         <v-container fluid>
-          <date-picker />
+          <date-picker name='updatedAt'/>
           <v-layout col wrap>
             <v-flex md4 lg4 class='colContainer'>
               <span class='selectTitle'>{{ mappingCity || 'null' }}</span>
