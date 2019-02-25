@@ -56,7 +56,7 @@ export default {
       params: {updatedAt, cityCode, townCode, sectCode}
     }  
 
-    const res = await axios.get(`http://${req.connection.remoteAddress}:3000/api/landbuilds`, requestOptions)
+    const res = await axios.get(`http://0.0.0.0:${req.connection.localPort}/api/landbuilds`, requestOptions)
     const landbuild = res.data
     return {
       landbuild

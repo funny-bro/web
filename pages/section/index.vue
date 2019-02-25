@@ -20,7 +20,7 @@ export default {
     ContenForm
   },
   async asyncData ({ params, req }) {
-    const {cityConfig, townConfig, sectConfig} = (await axios.get(`http://${req.connection.remoteAddress}:3000/api/system`)).data
+    const {cityConfig, townConfig, sectConfig} = (await axios.get(`http://0.0.0.0:${req.connection.localPort}/api/system`)).data
     return {
       cityConfig, townConfig, sectConfig
     }

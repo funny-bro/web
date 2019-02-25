@@ -50,7 +50,7 @@ import dateUtil from '~/lib/date'
 
 export default {
   async asyncData ({ params, req }) {
-    const url = `http://${req.connection.remoteAddress}:3000/api/landbuilds`
+    const url = `http://0.0.0.0:${req.connection.localPort}/api/landbuilds`
     const res = await axios.get(url)
     const landbuild = res.data
     return {
