@@ -120,11 +120,11 @@ export default {
     }
   },
   data: function(){
-    const selectedCity = this.cityConfig && this.cityConfig[0] && this.cityConfig[0].code || 'A'
+    const selectedCity = this.cityConfig && this.cityConfig[0] && this.cityConfig[0].code || 'F'
     const filteredTownconfig = this.filteredTownConfig(selectedCity)[0]
-    const selectedTown =  filteredTownconfig && filteredTownconfig.code || 'A15'
+    const selectedTown =  filteredTownconfig && filteredTownconfig.code || 'F05'
     const filteredSectConfig = this.filteredSectConfig(selectedTown)[0]
-    const selectedSect = filteredSectConfig && filteredSectConfig.code || '0953'
+    const selectedSect = filteredSectConfig && filteredSectConfig.code || '1787'
 
     return {
       selectedCity,

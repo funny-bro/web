@@ -15,12 +15,15 @@
         </v-list>     
       </v-navigation-drawer> -->
 
-<!-- 
-    <v-toolbar color="cyan" dark fixed app>
-      <v-spacer></v-spacer>
-      <v-toolbar-title>Application</v-toolbar-title>
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-    </v-toolbar> -->
+
+      <v-toolbar>
+        <v-toolbar-title>ZD</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn flat href='/landbuild/search'>建號報告</v-btn>
+          <v-btn flat href='/section'>建號編緝</v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
     
       <v-container>
         <nuxt />

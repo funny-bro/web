@@ -14,19 +14,11 @@
           <v-flex xs12>
             <div class="resultContainer">
               <v-layout align-center justify-center column>
-                <v-text-field
-                  v-model="search"
-                  append-icon="search"
-                  label="Search"
-                  single-line
-                  hide-details
-                ></v-text-field>
                 <v-data-table
                   :headers="headers"
                   :items="items"
                   class="elevation-1"
                   hide-actions
-                  :search="search"
                 >
                   <template slot="items" slot-scope="props">
                     <td class="text-xs-right">{{ props.item.isShow ? props.item.landBuild : '' }}</td>
@@ -95,7 +87,6 @@ export default {
   },
   data: function(){
     return {
-      search: '',
       headers: [
         { text: '建號', value: 'landBuild' },
         { text: '城市', value: 'cityCode' },
