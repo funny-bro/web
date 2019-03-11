@@ -39,11 +39,15 @@ export default {
       default: ''
     }
   },
-  data: vm => ({
-    date: new Date().toISOString().substr(0, 10),
-    dateFormatted: vm.formatDate(new Date().toISOString().substr(0, 10)),
-    menu1: false,
-  }),
+  data: function(){
+    const nDaysAgo = new Date()
+    nDaysAgo.setDate(nDaysAgo.getDate()-30);
+    return {
+      date: nDaysAgo.toISOString().substr(0, 10),
+      dateFormatted: this.formatDate(nDaysAgo.toISOString().substr(0, 10)),
+      menu1: false,
+    }
+  },
   watch: {
     date (val) {
       this.dateFormatted = this.formatDate(this.date)

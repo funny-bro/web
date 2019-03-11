@@ -1,5 +1,25 @@
 <template>
 <div>
+    <v-snackbar
+      v-model="snackbar"
+      :bottom="y === 'bottom'"
+      :left="x === 'left'"
+      :multi-line="mode === 'multi-line'"
+      :right="x === 'right'"
+      :timeout="timeout"
+      :top="y === 'top'"
+      :vertical="mode === 'vertical'"
+    >
+      {{ notificationMsg }}
+      <v-btn
+        color="pink"
+        flat
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
+
   <v-form
     v-model="valid"
     lazy-validation
@@ -42,7 +62,7 @@
     ></v-text-field>
     
     <v-text-field
-      :value="section.landBuildMax || '--'"
+      v-model='innerLandBuildMax'
       :rules="numberOnlyRule"
       label="最大路段"
     ></v-text-field>
@@ -50,9 +70,15 @@
     <v-btn
       :disabled="!valid"
       color="success"
+      @click='handleSubmit'
     >
       Validate
     </v-btn>
+    <v-progress-circular
+      v-if='isLoading'
+      indeterminate
+      color="deep-orange lighten-2"
+    ></v-progress-circular>
   </v-form>
 </div>
 </template>
@@ -96,6 +122,25 @@ export default {
     }
   },
   methods: {
+    handleSubmit: async function(){
+      try{
+        this.isLoading = true
+        const {innerLandBuildMax : landBuildMax, section} = this
+        const {id} = section
+        
+        if(!id || !landBuildMax) return 
+
+        const res = await await axios.post('/api/section', {id, landBuildMax}, )
+        this.notificationMsg = `更新成功`
+        this.snackbar = true
+        this.isLoading = false
+      }
+      catch(err){
+        this.notificationMsg = `更新失敗`
+        this.snackbar = true
+        this.isLoading = false
+      }
+    }
   },
   computed: {
     mappingSection: function(){
@@ -132,6 +177,10 @@ export default {
   data: function(){
     return {
       valid: false,
+      notificationMsg: '',
+      isLoading: false,
+      snackbar: false,
+      innerLandBuildMax: this.section.landBuildMax || '--',
       numberOnlyRule: [
           v => !!v || 'Number is required',
           v => !isNaN(v) || 'It is not a number'

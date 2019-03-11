@@ -24,8 +24,8 @@ async function start() {
   }
 
 
-  // parse application/x-www-form-urlencoded
   app.use(bodyParser.urlencoded({ extended: false }))
+  app.use(bodyParser.json());
   app.use( require('cookie-session')({
     name: 'session',
     keys: ['key1'/* secret keys */],

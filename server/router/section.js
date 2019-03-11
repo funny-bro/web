@@ -24,19 +24,15 @@ router.get('/', async function (req, res) {
 router.post('/', async function (req, res) {
 
   try {
-    
     const {id, landBuildMax} = req.body
-    console.log('id' , id)
-    console.log('landBuildMax' , landBuildMax)
     if(!id || !landBuildMax) throw new Error(`Params landBuildMax, id are required: ${id, landBuildMax}`)
   
-    const response = await sequelize.query(`UPDATE sections SET landBuildMax = '${landBuildMax}' WHERE id = '${id}'`, { type: sequelize.QueryTypes.SELECT})
-    const result = response[0] || {}
-    // return res.json(result)
-    // return res.json({})
-    res.redirect(req.originalUrl)
+    const response = await sequelize.query(`UPDATE sections SET landBuildMax = '${landBuildMax}' WHERE id = '${id}'`)
+
+    return res.json({})
   }
   catch(err){
+    console.log(err)
     return res.status(500).json(err.data)
   }
 })
