@@ -57,6 +57,9 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    splitChunks: {
+      layouts: true
+    },
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
     loaders: {

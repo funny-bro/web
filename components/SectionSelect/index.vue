@@ -47,7 +47,7 @@
                 <v-radio
                   color="orange darken-3"
                   v-for='(sectItem, index) in filteredSectConfig(selectedTown)'
-                  :label="sectItem.title"
+                  :label="`${sectItem.title} - `"
                   :value="sectItem.code" 
                   :key='index'
                 />

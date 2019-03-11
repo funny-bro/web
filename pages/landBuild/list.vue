@@ -13,6 +13,8 @@
         <v-layout column>
           <v-flex xs12>
             <div class="resultContainer">
+              <h1> {{items[0] && items[0].cityCode}} - {{items[0] && items[0].townCode}} - {{items[0] && items[0].sectCode}} </h1>
+              <h2>{{ items.filter(item => item.isShow).length }} 建號 {{items.length}} 人</h2>
               <v-layout align-center justify-center column>
                 <v-data-table
                   :headers="headers"
@@ -59,7 +61,10 @@ export default {
     const res = await axios.get(`http://0.0.0.0:${req.connection.localPort}/api/landbuilds`, requestOptions)
     const landbuild = res.data
     return {
-      landbuild
+      landbuild,
+      currentCityCode: cityCode,
+      currentTownCode: townCode,
+      currentSectCode: sectCode,
     }
   },
   computed: {
