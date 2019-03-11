@@ -4,7 +4,7 @@
       <section-select v-bind='{cityConfig, townConfig, sectConfig}' @onChange='handleSelect'/>
     </div>
     <div class='contentContainer'>
-      <conten-form v-bind='{cityConfig, townConfig, sectConfig, section}'/>
+      <conten-form v-if='section && section.id' v-bind='{cityConfig, townConfig, sectConfig, section}'/>
     </div>
   </div>
 </template>

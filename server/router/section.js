@@ -4,6 +4,7 @@ const configParser = require('../../lib/systemConfig/parser')
 
 const sequelize = require('../db/init')
 
+
 router.get('/', async function (req, res) {
   try {
     const {cityCode, townCode, sectCode} = req.query
@@ -13,6 +14,27 @@ router.get('/', async function (req, res) {
     const response = await sequelize.query(`SELECT * FROM zd.sections where cityCode='${cityCode}' and townCode='${townCode}' and sectCode='${sectCode}'`, { type: sequelize.QueryTypes.SELECT})
     const result = response[0] || {}
     return res.json(result)
+  }
+  catch(err){
+    return res.status(500).json(err.data)
+  }
+})
+
+
+router.post('/', async function (req, res) {
+
+  try {
+    
+    const {id, landBuildMax} = req.body
+    console.log('id' , id)
+    console.log('landBuildMax' , landBuildMax)
+    if(!id || !landBuildMax) throw new Error(`Params landBuildMax, id are required: ${id, landBuildMax}`)
+  
+    const response = await sequelize.query(`UPDATE sections SET landBuildMax = '${landBuildMax}' WHERE id = '${id}'`, { type: sequelize.QueryTypes.SELECT})
+    const result = response[0] || {}
+    // return res.json(result)
+    // return res.json({})
+    res.redirect(req.originalUrl)
   }
   catch(err){
     return res.status(500).json(err.data)
