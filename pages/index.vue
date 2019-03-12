@@ -93,7 +93,7 @@ export default {
         { text: '區號', value: 'townCode' },
         { text: '路段', value: 'sectCode' },
         {
-          text: '戶主',
+          text: '債權人',
           align: 'left',
           sortable: false,
           value: 'name'

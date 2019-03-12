@@ -16,7 +16,7 @@
           required
         ></v-text-field>
 
-        <v-btn type="submit" >submit</v-btn>
+        <v-btn type="submit" >登入</v-btn>
       </form>
     </v-flex>
   </v-layout>

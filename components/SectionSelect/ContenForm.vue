@@ -72,7 +72,7 @@
       color="success"
       @click='handleSubmit'
     >
-      Validate
+      更新
     </v-btn>
     <v-progress-circular
       v-if='isLoading'
