@@ -8,24 +8,8 @@ const sequelize = require('../db/init')
 
 router.get('/recentExcuted', async function (req, res) {
   try {
-
     const response = await sequelize.query(`select * from sections where executedAt is not null  ORDER BY executedAt DESC limit 10`)
     const result = response[0] || {}
-
-    result.forEach(element => {
-      let cityName = cityConfig.find(el => el.code === element.cityCode).title
-
-      let townConfig = require(`../../configInit/town_${element.cityCode}.json`)
-      let townName = townConfig.find(el => el.code === element.townCode).title
-
-      let sectConfig = require(`../../configInit/section_${element.cityCode}_${element.townCode}.json`)
-      let sectName = sectConfig.find(el => el.value === element.sectCode).text
-
-      element.cityName =  cityName
-      element.townName =  townName
-      element.sectName =  sectName
-    });
-
     return res.json(result)
   }
   catch(err){

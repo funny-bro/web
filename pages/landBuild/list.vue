@@ -12,10 +12,11 @@
       <v-container fluid>
         <v-layout column>
           <v-flex xs12>
-            <div class="resultContainer">
+            <div >
               <h1> {{items[0] && items[0].cityCode}} - {{items[0] && items[0].townCode}} - {{items[0] && items[0].sectCode}} </h1>
               <h2>{{ items.filter(item => item.isShow).length }} 建號 {{items.length}} 人</h2>
               <v-layout align-center justify-center column>
+                
                 <v-data-table
                   :headers="headers"
                   :items="items"
@@ -103,7 +104,7 @@ export default {
         { text: '區號', value: 'townCode' },
         { text: '路段', value: 'sectCode' },
         {
-          text: '戶主',
+          text: '債權人',
           align: 'left',
           sortable: false,
           value: 'name'
@@ -122,10 +123,6 @@ export default {
 </script>
 
 <style scoped>
-  .resultContainer {
-    height: 350px;
-  }
-
   .item {
     min-height: 50px;
     margin: 10px;

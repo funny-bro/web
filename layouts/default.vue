@@ -20,7 +20,8 @@
         <v-toolbar-title>ZD</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
-          <v-btn flat href='/landbuild/search'>建號報告</v-btn>
+           <v-btn flat href='/section/recentExcuted'>最近更新</v-btn>
+           <v-btn flat href='/landbuild/search'>建號報告</v-btn>
           <v-btn flat href='/section'>建號編緝</v-btn>
         </v-toolbar-items>
       </v-toolbar>
