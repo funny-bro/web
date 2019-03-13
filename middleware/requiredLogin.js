@@ -1,5 +1,5 @@
 const isAuth = (req) => {
-  return req.session.auth === process.env.AUTH_SIGN
+  return req.session.auth === `${process.env.AUTH_SIGN}${process.env.AUTH_SIGN_PWD}`
 }
 
 export default function ({req, res}) {

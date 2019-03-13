@@ -6,9 +6,12 @@ router.get('/', function (req, res) {
 })
 
 router.post('/', function (req, res) {
-  if(req.body.email !== process.env.AUTH_SIGN) return res.redirect('/erro')
+  const {email, password} = req.body
+  const signedAuth = `${email}${password}`
+
+  if(email !== process.env.AUTH_SIGN || password !== process.env.AUTH_SIGN_PWD) return res.redirect('/error')
   
-  req.session.auth = req.body.email
+  req.session.auth = signedAuth
   return res.redirect('/');
 })
 
