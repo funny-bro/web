@@ -18,7 +18,7 @@
           slot="activator"
           v-model="dateFormatted"
           :name='name'
-          label="更新時間"
+          label="更新時間條件(在...之後)"
           hint="YYYY-MM-DD format"
           persistent-hint
           prepend-icon="event"

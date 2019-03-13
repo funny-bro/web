@@ -13,7 +13,7 @@
     >
       <form action="/landBuild/list" method='GET'>
         <div class='submitContainer'>
-          <v-btn type="submit" class='submitButton' color="info">送出</v-btn>
+          <v-btn type="submit" class='submitButton' color="info">查詢</v-btn>
         </div>
         <v-container fluid>
           <date-picker name='updatedAt'/>
