@@ -64,7 +64,7 @@
     <v-text-field
       v-model='innerLandBuildMax'
       :rules="numberOnlyRule"
-      label="最大路段"
+      label="最大建號"
     ></v-text-field>
     
     <v-btn
