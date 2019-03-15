@@ -4,6 +4,7 @@
       :headers="headers"
       :items="items"
       class="elevation-1"
+      hide-actions
     >
       <template slot="items" slot-scope="props">
         <td class="text-xs-left">{{ props.item.cityName }}</td>
