@@ -1,3 +1,6 @@
+/**
+ * @jest-environment node
+ */
 const systemRouter = require('@/server/router/system')
 const request = require('supertest');
 
@@ -7,7 +10,7 @@ app.use(systemRouter);
 
 
 describe('systemRouter', () => {
-  test('is a Vue instance', async () => {
+  test('should return corrent key/val', async () => {
     const res = {
       json: function(){
         console.log(' -=-=json')
@@ -18,6 +21,22 @@ describe('systemRouter', () => {
 
     expect(Object.keys(response.body)).toEqual([
       'townConfig', 'sectConfig', 'cityConfig'
+    ])
+  })
+})
+
+describe('systemRouter /calconfig', () => {
+  test('should return corrent key/val', async () => {
+    const res = {
+      json: function(){
+        console.log(' -=-=json')
+      }
+    }
+
+    const response = await request(app).get('/calconfig')
+
+    expect(Object.keys(response.body)).toEqual([
+      "type", "landBuildMax", "landBuildVal", "countChild", "countSubChild", "child"
     ])
   })
 })

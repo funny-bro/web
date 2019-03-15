@@ -8,7 +8,7 @@ const sequelize = require('../db/init')
 
 router.get('/recentExcuted', async function (req, res) {
   try {
-    const response = await sequelize.query(`select * from sections where executedAt is not null  ORDER BY executedAt DESC limit 10`)
+    const response = await sequelize.query(`select * from sections where executedAt is not null  ORDER BY executedAt DESC limit 100`)
     const result = response[0] || {}
     return res.json(result)
   }

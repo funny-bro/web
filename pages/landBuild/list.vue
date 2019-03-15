@@ -81,7 +81,8 @@ export default {
             sectCode,
             updatedAt,
             landBuild,
-            isShow: index === 0 
+            // isShow: index === 0 
+            isShow: true
           }))
       })
       const flattenedArray = [].concat(...arr);  

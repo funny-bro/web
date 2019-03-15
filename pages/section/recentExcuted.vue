@@ -7,10 +7,12 @@
       hide-actions
     >
       <template slot="items" slot-scope="props">
-        <td class="text-xs-left">{{ props.item.cityName }}</td>
-        <td class="text-xs-left">{{ props.item.townName }}</td>
-        <td class="text-xs-left">{{ props.item.sectName }}</td>
-        <td class="text-xs-left">{{ props.item.executedAt }}</td>
+          <td class="text-xs-left"><a :href='getUrl(props.item)'>{{ props.index +1 }}</a></td>
+          <td class="text-xs-left"><a :href='getUrl(props.item)'>{{ props.item.cityName }}</a></td>
+          <td class="text-xs-left"><a :href='getUrl(props.item)'>{{ props.item.townName }}</a></td>
+          <td class="text-xs-left"><a :href='getUrl(props.item)'>{{ props.item.sectName }}</a></td>
+          <td class="text-xs-left"><a :href='getUrl(props.item)'>{{ getSta(props.item) }}</a></td>
+          <td class="text-xs-left"><a :href='getUrl(props.item)'>{{ props.item.executedAt }}</a></td>
       </template>
     </v-data-table>
   </div>
@@ -18,7 +20,6 @@
 
 <script>
 import axios from 'axios'
-
 const cityConfig = require('../../configInit/city.json')
 
 export default {
@@ -45,24 +46,47 @@ export default {
         sectionList: data
       }
   },
-
   computed: {
     items : function(){
       const {sectionList} = this
       return sectionList
     },
-    
   },
   data () {
     return {
       headers: [
+        { text: 'No', value: 'no' },
         { text: '城市', value: 'cityName' },
         { text: '區域', value: 'townName' },
         { text: '路段', value: 'sectName' },
+        { text: '統計', value: 'sta' },
         { text: '更新時間', value: 'executedAt' },
       ]
+    }
+  },
+  methods: {
+    getUrl: function(item){
+      const {cityCode, townCode, sectCode} = item
+      return `/landBuild/list?updatedAt=02-13-2019&cityCode=${cityCode}&townCode=${townCode}&sectCode=${sectCode}`
+    },
+    getSta: function(item){
+      const {calConfig = {}} = this
+      const {cityCode, townCode, sectCode} = item
+
+      if(!calConfig || !calConfig.child || !calConfig.child[cityCode]) return '-'
+
+      const sectionConfig = calConfig.child[cityCode].child[townCode].child[sectCode]
+      const {landBuildMax, landBuildVal} = sectionConfig
+      return `${landBuildVal}/${landBuildMax}`
     }
   }
 }
 
 </script>
+
+<style scoped>
+a {
+  text-decoration: none;
+  color: white;
+}
+</style>
