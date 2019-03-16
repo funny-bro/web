@@ -26,7 +26,7 @@
                   <v-radio
                     color="orange darken-3"
                     v-for='(cityItem, index) in cityConfig'
-                    :label="cityItem.title"
+                    :label="`${cityItem.title} - ${getCityLandBuildMax(cityItem.code)}`"
                     :value="cityItem.code" 
                     :key='index'
                   />
@@ -36,13 +36,13 @@
 
             <v-flex md4 lg4  class='colContainer'>
               <span class='selectTitle'>{{ mappingTown || 'null' }}</span>
-              <span class='countContainer'>{{ filteredTownConfig(selectedCity).length || 0 }} 筆資料</span>
+              <span class='countContainer'>{{ filteredTownConfig(selectedCity).length || 0 }} 區 - 完成 {{getCityLandBuildPercent()}}%</span>
               <div class='scrollContainer'>
                 <v-radio-group v-model="selectedTown" column name='townCode'>
                   <v-radio
                     color="orange darken-3"
                     v-for='(townItem, index) in filteredTownConfig(selectedCity)'
-                    :label="townItem.title"
+                    :label="`${townItem.title} - ${getTownLandBuildVal(townItem.code)} / ${getTownLandBuildMax(townItem.code)}`"
                     :value="townItem.code" 
                     :key='index'
                   />
@@ -52,13 +52,13 @@
 
             <v-flex md4 lg4  class='colContainer'>
               <span class='selectTitle'>{{ mappingSection || 'null' }}</span>
-              <span class='countContainer'>{{ filteredSectConfig(selectedTown).length || 0 }} 筆資料</span>
+              <span class='countContainer'>{{ filteredSectConfig(selectedTown).length || 0 }} 路段 - 完成 {{getTownLandBuildPercent()}}%</span>
               <div class='scrollContainer'>
                 <v-radio-group v-model="selectedSect" column  name='sectCode'>
                   <v-radio
                     color="orange darken-3"
                     v-for='(sectItem, index) in filteredSectConfig(selectedTown)'
-                    :label="sectItem.title"
+                    :label="`${sectItem.title} - ${getSectionLandBuildVal(sectItem.code)} / ${getSectionLandBuildMax(sectItem.code)}`"
                     :value="sectItem.code" 
                     :key='index'
                   />
@@ -76,8 +76,18 @@
 <script>
 import axios from 'axios'
 import DatePicker from '@/components/DatePicker'
+import configMinix from '../../minixs/configMinix'
+  
+const shortenNum = (num) => {
+  if(!num) return 0
+
+  if(num > 10000) return `${Math.ceil(num/10000)}萬`
+
+  return num
+}
 
 export default {
+  mixins: [configMinix],
   components: {
     DatePicker
   },
@@ -100,6 +110,80 @@ export default {
     filteredSectConfig: function(selectedTown = ''){
       const {sectConfig = []} = this
       return sectConfig.filter( item => item.townCode === selectedTown) || []
+    },
+    getCityLandBuildPercent: function(_code = null) {
+      const code = _code || this.selectedCity
+      const calConfig = this.getCityCalConfig(code)
+
+      if(!calConfig || !calConfig.landBuildMax) return 0
+
+      const {landBuildMax, landBuildVal} = calConfig
+
+      return Math.ceil(landBuildVal/landBuildMax)
+    },
+    getTownLandBuildPercent: function(_code = null){
+      const townConfig = this.getTownCalConfig(_code)
+      if(!townConfig || !townConfig.landBuildMax) return 0
+
+      const {landBuildMax, landBuildVal} = townConfig
+
+      return Math.ceil(landBuildVal/landBuildMax)
+    },
+    getCityLandBuildMax: function(_code = null){
+      const code = _code || this.selectedCity
+      const calConfig = this.getCityCalConfig(code)
+
+      if(!calConfig || !calConfig.landBuildMax) return ''
+
+      return shortenNum(calConfig.landBuildMax)
+    },
+    getTownLandBuildMax: function(_code = null){
+      const townConfig = this.getTownCalConfig(_code)
+      return shortenNum(townConfig.landBuildMax)
+    },
+    getTownLandBuildVal: function(_code = null){
+      const townConfig = this.getTownCalConfig(_code)
+      return shortenNum(townConfig.landBuildVal)
+    },
+    getSectionLandBuildMax: function(_code = null){
+      const sectionConfig = this.getSectionCalConfig(_code)
+      return shortenNum(sectionConfig.landBuildMax)
+    },
+    getSectionLandBuildVal: function(_code = null){
+      const sectionConfig = this.getSectionCalConfig(_code)
+      return shortenNum(sectionConfig.landBuildVal)
+    },
+    getTownLandBuildVal: function(_code = null){
+      const townConfig = this.getTownCalConfig(_code)
+      return shortenNum(townConfig.landBuildVal)
+    },
+    getCityCalConfig: function(code){
+      const {calConfig} = this
+      if(!calConfig || !calConfig.child) return ''
+
+      return calConfig.child[code]
+    },
+    getTownCalConfig: function(_code){
+      const cityCode = this.selectedCity
+      const code = _code || this.selectedTown
+      const {calConfig} = this
+      if(!cityCode || !calConfig || !calConfig.child) return {}
+
+      const townConfig = calConfig.child[cityCode].child[code]
+      return townConfig
+    },
+    getSectionCalConfig: function(_code){
+      const cityCode = this.selectedCity
+      const townCode = this.selectedTown
+      const code = _code || this.selectedSect
+      const {calConfig} = this
+
+      console.log(cityCode, townCode, code)
+
+      if(!code || !calConfig || !calConfig.child) return {}
+
+      const sectionConfig = calConfig.child[cityCode].child[townCode].child[code]
+      return sectionConfig
     }
   },
   computed: {

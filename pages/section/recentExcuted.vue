@@ -20,9 +20,11 @@
 
 <script>
 import axios from 'axios'
+import configMinix from '../../minixs/configMinix'
 const cityConfig = require('../../configInit/city.json')
 
 export default {
+  mixins: [configMinix],
   async asyncData  ({ params, req }) {
       const res = await axios.get(`http://0.0.0.0:${req.connection.localPort}/api/section/recentExcuted`)
 
