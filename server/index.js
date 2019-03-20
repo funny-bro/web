@@ -36,6 +36,7 @@ async function start() {
   app.use('/api/landbuilds/', require('./router/landbuild'))
   app.use('/api/system/', require('./router/system'))
   app.use('/api/section/', require('./router/section'))
+  app.use('/api/history/', require('./router/history'))
 
   // Give nuxt middleware to express
   app.use(nuxt.render)

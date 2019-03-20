@@ -1,5 +1,8 @@
 <template>
   <div>
+    <h2>
+      <v-btn href='/history/list'> 執行記錄 </v-btn>
+    </h2>
     <v-data-table
       :headers="headers"
       :items="items"
