@@ -18,7 +18,7 @@
           slot="activator"
           v-model="dateFormatted"
           :name='name'
-          label="更新時間條件(在...之後)"
+          :label='title'
           hint="YYYY-MM-DD format"
           persistent-hint
           prepend-icon="event"
@@ -35,6 +35,10 @@
 export default {
   props: {
     name: {
+      type: String,
+      default: ''
+    },
+    title: {
       type: String,
       default: ''
     }
