@@ -6,7 +6,7 @@ const sequelize = require('../db/init')
 
 router.get('/', async function (req, res) {
   try {
-    http://localhost:3000/landBuild/list?updatedAtFrom=03-01-2019&updatedAtEnd=05-18-2019&cityCode=F&townCode=F33
+    // http://localhost:3000/landBuild/list?updatedAtFrom=03-01-2019&updatedAtEnd=05-18-2019&cityCode=F&townCode=F33
     const {updatedAtFrom = '', updatedAtEnd = '', cityCode = '', townCode = '', sectCode = ''} = req.query
     const [mmFrom, ddFrom, yyFrom] = updatedAtFrom.split('-')
     const _updatedAtFrom = `${yyFrom}-${mmFrom}-${ddFrom}`
