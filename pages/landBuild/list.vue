@@ -53,10 +53,10 @@ import dateUtil from '~/lib/date'
 
 export default {
   async asyncData ({ params, req }) {
-    const {updatedAt, cityCode, townCode, sectCode} = req.query
+    const {updatedAtFrom, updatedAtEnd, cityCode, townCode, sectCode} = req.query
 
     const requestOptions = {
-      params: {updatedAt, cityCode, townCode, sectCode}
+      params: {updatedAtFrom, updatedAtEnd, cityCode, townCode, sectCode}
     }  
 
     const res = await axios.get(`http://0.0.0.0:${req.connection.localPort}/api/landbuilds`, requestOptions)

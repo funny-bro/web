@@ -16,7 +16,10 @@
           <v-btn type="submit" class='submitButton' color="info">查詢</v-btn>
         </div>
         <v-container fluid>
-          <date-picker name='updatedAt'/>
+          <div class='datePickerWrapper'>
+            <date-picker name='updatedAtFrom' title='起始時間'/>
+            <date-picker name='updatedAtEnd' title='結束時間'/> 
+          </div>
           <v-layout col wrap>
             <v-flex md4 lg4 class='colContainer'>
               <span class='selectTitle'>{{ mappingCity || 'null' }}</span>
@@ -272,5 +275,8 @@ export default {
 .submitButton {
   margin-left: auto;
   margin-right: 25px;
+}
+.datePickerWrapper{
+  display: flex;
 }
 </style>

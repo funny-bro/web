@@ -15,8 +15,8 @@ describe('Logo', () => {
         }
       }
   
-      const response = await request(app).get('/?updatedAt=02-16-2019&cityCode=F&townCode=F05&sectCode=1787')
-      require('fs').writeFileSync('./abc.json', JSON.stringify(response.body))
+      const response = await request(app).get('/?updatedAtFrom=03-01-2019&updatedAtEnd=05-18-2019&cityCode=F&townCode=F05&sectCode=1787')
+      require('fs').writeFileSync('./abc.json', JSON.stringify(response.body, null, 2))
   
       expect(response.body.length >1).toBe(true)
   
