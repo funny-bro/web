@@ -74,16 +74,21 @@ export default {
         const {data, updatedAt, landBuild, section} = item
         const {cityCode, townCode, sectCode} = section
 
-        return JSON.parse(data).map((itemData, index) => ({
-            ...itemData,
-            cityCode,
-            townCode,
-            sectCode,
-            updatedAt,
-            landBuild,
-            // isShow: index === 0 
-            isShow: true
-          }))
+        try{
+          return JSON.parse(data).map((itemData, index) => ({
+              ...itemData,
+              cityCode,
+              townCode,
+              sectCode,
+              updatedAt,
+              landBuild,
+              // isShow: index === 0 
+              isShow: true
+            }))
+        }
+        catch(err){
+          return []
+        }
       })
       const flattenedArray = [].concat(...arr);  
       const personArr = flattenedArray.filter(item => item.name.includes('＊'))
