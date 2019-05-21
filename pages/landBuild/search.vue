@@ -17,8 +17,8 @@
         </div>
         <v-container fluid>
           <div class='datePickerWrapper'>
-            <date-picker name='updatedAtFrom' title='起始時間'/>
-            <date-picker name='updatedAtEnd' title='結束時間'/> 
+            <date-picker name='updatedAtFrom' title='起始時間' :dayBefore='30'/>
+            <date-picker name='updatedAtEnd' title='結束時間' :dayBefore='1'/>
           </div>
           <v-layout col wrap>
             <v-flex md4 lg4 class='colContainer'>

@@ -41,11 +41,16 @@ export default {
     title: {
       type: String,
       default: ''
+    },
+    dayBefore: {
+      type: Number,
+      default: 1
     }
   },
   data: function(){
+    const {dayBefore = 1} = this
     const nDaysAgo = new Date()
-    nDaysAgo.setDate(nDaysAgo.getDate()-30);
+    nDaysAgo.setDate(nDaysAgo.getDate()-dayBefore);
     return {
       date: nDaysAgo.toISOString().substr(0, 10),
       dateFormatted: this.formatDate(nDaysAgo.toISOString().substr(0, 10)),
