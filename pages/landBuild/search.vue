@@ -20,7 +20,6 @@
           <v-layout col wrap>
             <v-flex md4 lg4 class='colContainer'>
               <span class='selectTitle'>{{ mappingCity || 'null' }}</span>
-              <span class='countContainer'>{{ cityConfig.length || 0 }} 筆資料</span>
               <div class='scrollContainer'>
                 <v-radio-group v-model="selectedCity" column name='cityCode'>
                   <v-radio
@@ -36,13 +35,12 @@
 
             <v-flex md4 lg4  class='colContainer'>
               <span class='selectTitle'>{{ mappingTown || 'null' }}</span>
-              <span class='countContainer'>{{ filteredTownConfig(selectedCity).length || 0 }} 區 - 完成 {{getCityLandBuildPercent()}}%</span>
               <div class='scrollContainer'>
                 <v-radio-group v-model="selectedTown" column name='townCode'>
                   <v-radio
                     color="orange darken-3"
                     v-for='(townItem, index) in filteredTownConfig(selectedCity)'
-                    :label="`${townItem.title} - ${getTownLandBuildVal(townItem.code)} / ${getTownLandBuildMax(townItem.code)}`"
+                    :label="`${townItem.title}`"
                     :value="townItem.code" 
                     :key='index'
                   />
@@ -52,13 +50,12 @@
 
             <v-flex md4 lg4  class='colContainer'>
               <span class='selectTitle'>{{ mappingSection || 'null' }}</span>
-              <span class='countContainer'>{{ filteredSectConfig(selectedTown).length || 0 }} 路段 - 完成 {{getTownLandBuildPercent()}}%</span>
               <div class='scrollContainer'>
                 <v-radio-group v-model="selectedSect" column  name='sectCode'>
                   <v-radio
                     color="orange darken-3"
                     v-for='(sectItem, index) in filteredSectConfig(selectedTown)'
-                    :label="`${sectItem.title} - ${getSectionLandBuildVal(sectItem.code)} / ${getSectionLandBuildMax(sectItem.code)}`"
+                    :label="`${sectItem.title}`"
                     :value="sectItem.code" 
                     :key='index'
                   />
@@ -142,8 +139,16 @@ export default {
       return shortenNum(townConfig.landBuildMax)
     },
     getTownLandBuildVal: function(_code = null){
+
       const townConfig = this.getTownCalConfig(_code)
-      return shortenNum(townConfig.landBuildVal)
+      const result = shortenNum(townConfig.landBuildVal)
+
+      console.log('_code',_code)
+      console.log('townConfig',townConfig)
+      console.log('townConfig.landBuildVal',townConfig.landBuildVal)
+      console.log('result',result)
+
+      return result
     },
     getSectionLandBuildMax: function(_code = null){
       const sectionConfig = this.getSectionCalConfig(_code)
@@ -152,10 +157,6 @@ export default {
     getSectionLandBuildVal: function(_code = null){
       const sectionConfig = this.getSectionCalConfig(_code)
       return shortenNum(sectionConfig.landBuildVal)
-    },
-    getTownLandBuildVal: function(_code = null){
-      const townConfig = this.getTownCalConfig(_code)
-      return shortenNum(townConfig.landBuildVal)
     },
     getCityCalConfig: function(code){
       const {calConfig} = this
