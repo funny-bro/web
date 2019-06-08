@@ -44,11 +44,11 @@ export default {
     },
     dayBefore: {
       type: Number,
-      default: 1
+      default: 0
     }
   },
   data: function(){
-    const {dayBefore = 1} = this
+    const {dayBefore = 0} = this
     const nDaysAgo = new Date()
     nDaysAgo.setDate(nDaysAgo.getDate()-dayBefore);
     return {

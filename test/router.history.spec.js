@@ -8,7 +8,6 @@ const express = require('express');
 const app = express();
 app.use(historyRouter);
 
-
 describe('historyRouter', () => {
   test('should return corrent key/val', async () => {
     const res = {
