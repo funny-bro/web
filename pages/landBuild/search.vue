@@ -28,7 +28,7 @@
                   <v-radio
                     color="orange darken-3"
                     v-for='(cityItem, index) in cityConfig'
-                    :label="`${cityItem.title} - ${getCityLandBuildMax(cityItem.code)}`"
+                    :label="`${cityItem.title} - ${cityItem.code} - ${getCityLandBuildMax(cityItem.code)}`"
                     :value="cityItem.code" 
                     :key='index'
                   />
@@ -43,7 +43,7 @@
                   <v-radio
                     color="orange darken-3"
                     v-for='(townItem, index) in filteredTownConfig(selectedCity)'
-                    :label="`${townItem.title}`"
+                    :label="`${townItem.title}-${townItem.code}`"
                     :value="townItem.code" 
                     :key='index'
                   />

@@ -69,7 +69,7 @@
     
     <v-btn
       :disabled="!valid"
-      color="success"
+      color="info"
       @click='handleSubmit'
     >
       更新

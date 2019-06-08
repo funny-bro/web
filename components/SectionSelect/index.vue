@@ -28,13 +28,14 @@
             <span class='countContainer'>{{ filteredTownConfig(selectedCity).length || 0 }} 筆資料</span>
             <div class='scrollContainer'>
               <v-radio-group v-model="selectedTown" column name='townCode'>
-                <v-radio
-                  color="orange darken-3"
-                  v-for='(townItem, index) in filteredTownConfig(selectedCity)'
-                  :label="townItem.title"
-                  :value="townItem.code" 
-                  :key='index'
-                />
+                <div v-for='(townItem, index) in filteredTownConfig(selectedCity)' :key='index' class='radioRow'>
+                  <v-radio
+                    color="orange darken-3"
+                    :label="townItem.title"
+                    :value="townItem.code" 
+                  />
+                  <v-btn color="info" small> 排時</v-btn>
+                </div>
               </v-radio-group>
             </div>
           </v-flex>
@@ -146,7 +147,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped >
 .selectionContainer {
 
 }
@@ -176,5 +177,8 @@ export default {
 .countContainer {
   display: block;
   padding: 10px 0;
+}
+.radioRow {
+  display: flex;
 }
 </style>
